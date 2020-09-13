@@ -1,12 +1,13 @@
 # Demo-Forum-Member-Microservice
 
-This project includes all the member related function for [demo-forum](https://www.google.com). The microservice is designed to run on security environment instead of public cloud or any sort.
+This project includes all the member related function for [demo-forum](https://www.google.com). The microservice is designed to run on secure environment instead of public cloud or any sort.
 
 The member microservice would provide the following service.
 
   - Creation and editing member
+  - Group of admin functions (query/ edit/ delete member info)
   - Generaten and renew JWT for login credential
-  - validate the JWT expiry date (check changing password within the expiry date)
+  - fire an request to update other module on the JWT expiry date
 
 ## API doc
 For localhost environment: http://localhost:8080/swagger-ui.html
