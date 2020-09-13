@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
@@ -29,14 +31,14 @@ public class MemberRestController {
 	@Autowired MemberService memberService;
 
 	@ApiOperation(value = "Create New Member", notes = "All the fields are mandatory", consumes = "application/json", response = MemberDto.class)
-	@RequestMapping(method = RequestMethod.POST)
+	@PostMapping
 	public ResponseEntity<String> createMember(@Valid @RequestBody MemberDto memberDto) throws ApplicationException{
 		memberService.createMember(memberDto, Boolean.FALSE); //create normal user
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "Update Member information", notes = "Only user name and password is updatable", consumes = "application/json", response = MemberDto.class)
-	@RequestMapping(method = RequestMethod.PUT)
+	@PutMapping
 	public ResponseEntity<String> updateMember(@RequestBody MemberDto memberDto) throws ApplicationException{
 		String userIdStr = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Long userId = NumberUtils.isParsable(userIdStr) ? Long.parseLong(userIdStr) : -1L;
@@ -50,7 +52,7 @@ public class MemberRestController {
 	}
 
 	@ApiOperation(value = "Get Member details", notes = "Only user name would retieved", consumes = "application/json", response = MemberDto.class)
-	@RequestMapping(method = RequestMethod.GET)
+	@GetMapping
 	public ResponseEntity<MemberDto> getMemberDetails() throws ApplicationException{
 		String userIdStr = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Long userId = NumberUtils.isParsable(userIdStr) ? Long.parseLong(userIdStr) : -1L;
@@ -59,7 +61,6 @@ public class MemberRestController {
 			return new ResponseEntity<MemberDto>(new MemberDto(), HttpStatus.BAD_REQUEST);
 		}
 		MemberDto memberDto = memberService.getMemberDetail(userId);
-		//TODO: need to fire a restful call to post micoservice to update user password change time
 		return new ResponseEntity<MemberDto>(memberDto, HttpStatus.OK);
 	}
 
