@@ -29,13 +29,17 @@ Demo-Forum-Member-Microservice requires gradle v6.5.1+ to run.
 
 ```sh
 $ gradle build
-$ gradle bootRun
 ```
 
 For deploying localhost...
 
 ```sh
 $ gradle bootRunDev
+```
+
+### Run on Docker 
+```sh
+docker-compose up
 ```
 
 ### Testing API with swagger

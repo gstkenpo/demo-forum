@@ -1,0 +1,26 @@
+version: '3'
+services:
+  user-db:
+    container_name: user-db
+    image: mariadb:latest
+    ports: 
+      - 3007:3306
+    networks:
+      - member-network
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+    volumes:
+      - ./db/schema:/docker-entrypoint-initdb.d/schema
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+  member-service:
+    build: .
+    networks:
+      - member-network
+    ports:
+      - "8080:8081"
+    depends_on:
+      - user-db
+
+networks:
+  member-network:
+  #for member service backend
