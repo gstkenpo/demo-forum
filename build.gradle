@@ -46,6 +46,10 @@ test {
 	useJUnitPlatform()
 }
 
+bootJar {
+    layered()
+}
+
 tasks.register('zbootRunLocal') {
 	//logger.error('ken config')
 	group = "application"

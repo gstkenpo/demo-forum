@@ -20,6 +20,7 @@ services:
   app:
     container_name: member-service
     build: .
+    image: member-service:latest
     networks:
       - member-network
     ports:
