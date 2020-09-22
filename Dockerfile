@@ -1,11 +1,11 @@
-FROM adoptopenjdk:11-jre-hotspot as builder
+FROM adoptopenjdk:11-jre-openj9 as builder
 WORKDIR application
 EXPOSE 8080
 ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
 
-FROM adoptopenjdk:11-jre-hotspot
+FROM adoptopenjdk:11-jre-openj9
 WORKDIR application
 COPY --from=builder application/dependencies ./
 COPY --from=builder application/spring-boot-loader ./
