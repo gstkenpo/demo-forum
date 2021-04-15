@@ -24,7 +24,7 @@ services:
     networks:
       - member-network
     ports:
-      - "8080:8081"
+      - "8081:8081"
     environment:
       SPRING_PROFILES_ACTIVE: docker
     depends_on:

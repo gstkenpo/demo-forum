@@ -18,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -105,7 +106,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         if (userId < 0 || userId == null || createDate == null) return Boolean.FALSE;
         Member member = memberRepository.findById(userId).orElse(null);
         if (member == null) {
-            throw new ApplicationException("No member is found by userId: " + userId);
+            throw new ApplicationException("No member is found by userId: " + userId, HttpStatus.UNAUTHORIZED);
         }
         Date passwordUpdateDate = member.getPasswordUpdateDate();
         if (passwordUpdateDate == null) return Boolean.TRUE;
