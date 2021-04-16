@@ -10,16 +10,16 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 1234
     volumes:
-      - ./db/schema:/home/mysql/schema
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./member-service/db/schema:/home/mysql/schema
+      - ./member-service/db/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
         test: "/usr/bin/mysql --user=root --password=1234 --execute \"SHOW DATABASES;\""
         interval: 3s
         timeout: 1s
         retries: 5
-  app:
+  member-service:
     container_name: member-service
-    build: .
+    build: member-service
     image: member-service:latest
     networks:
       - member-network

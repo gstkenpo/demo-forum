@@ -1,1 +1,2 @@
-rootProject.name = "demo-forum-micoservice-member"
+rootProject.name = 'demo-project'
+include 'member-service'
