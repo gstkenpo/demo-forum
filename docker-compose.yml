@@ -1,12 +1,36 @@
 version: '3'
 services:
+  eureka-service:
+    container_name: eureka-service
+    build: eureka-service
+    image: eureka-service:latest
+    # ports:
+      # - "8761:8761"
+    networks:
+      - forum-network
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    restart: on-failure:5
+  gateway-service:
+    container_name: gateway-service
+    build: gateway-service
+    image: gateway-service:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - forum-network
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    depends_on:
+      - eureka-service
+    restart: on-failure:5
   db:
     container_name: user-db
     image: mariadb:latest
-    ports: 
-      - 3007:3306
+    # ports: 
+      # - 3007:3306
     networks:
-      - member-network
+      - forum-network
     environment:
       MYSQL_ROOT_PASSWORD: 1234
     volumes:
@@ -22,14 +46,15 @@ services:
     build: member-service
     image: member-service:latest
     networks:
-      - member-network
+      - forum-network
     ports:
       - "8081:8081"
     environment:
       SPRING_PROFILES_ACTIVE: docker
     depends_on:
       - db
+      - eureka-service
     restart: on-failure:5
 networks:
-  member-network:
+  forum-network:
   #for member service backend

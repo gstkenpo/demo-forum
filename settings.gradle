@@ -1,2 +1,4 @@
 rootProject.name = 'demo-project'
 include 'member-service'
+include 'gateway-service'
+include 'eureka-service'

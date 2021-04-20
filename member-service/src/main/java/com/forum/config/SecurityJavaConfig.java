@@ -1,13 +1,11 @@
 package com.forum.config;
 
 import com.forum.security.filter.JWTAuthenticationFilter;
-import com.forum.security.filter.JWTAuthorizationFilter;
 import com.forum.service.MemberService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -37,14 +35,14 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
     	http.csrf().disable()
     	.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
     	.authorizeRequests()
-    	.antMatchers(HttpMethod.POST, "/rest/member").permitAll()
-    	// .antMatchers("/admin/**").hasAnyAuthority("Admin")
-    	// .antMatchers("/auth").permitAll()
-    	.antMatchers("/v2/api-docs/**", "/configuration/ui/**", "/swagger-resources/**", "/configuration/security/**", "/swagger-ui.html", "/webjars/**").permitAll()
+    	.antMatchers("/rest/member").permitAll()
+        // .antMatcher("*")
+    	.antMatchers("/rest/admin").permitAll()
+    	// .antMatchers("/v2/api-docs/**", "/configuration/ui/**", "/swagger-resources/**", "/configuration/security/**", "/swagger-ui.html", "/webjars/**").permitAll()
 		.anyRequest().authenticated()
         .and()
         .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-        .addFilter(new JWTAuthorizationFilter(authenticationManager(), memberService))
+        // .addFilter(new JWTAuthorizationFilter(authenticationManager(), memberService))
         //.addFilter(jWTAuthorizationFilter)
 		// .headers()
         ;

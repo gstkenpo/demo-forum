@@ -6,17 +6,22 @@
  * User Manual available at https://docs.gradle.org/6.3/userguide/java_library_plugin.html
  */
 plugins {
-	id 'org.springframework.boot' version '2.3.2.RELEASE'
-	id "io.spring.dependency-management" version "1.0.9.RELEASE"
+	id 'org.springframework.boot' version '2.4.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 }
 
 //name = 'demo-forum-memeber-service'
+group = 'com.forum'
 
-sourceCompatibility = '1.8'
+sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
+}
+
+ext {
+	set('springCloudVersion', "2020.0.2")
 }
 
 dependencies {
@@ -24,11 +29,13 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
-	testImplementation('org.springframework.security:spring-security-test')
+	// testImplementation('org.springframework.security:spring-security-test')
 	//implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation('org.springframework.boot:spring-boot-starter-validation')
 	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
 	implementation('org.springframework.boot:spring-boot-starter-security')
+	// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client', version: '3.0.2'
 	implementation ('com.auth0:java-jwt:3.10.3')
 	// https://mvnrepository.com/artifact/commons-codec/commons-codec
 	compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
@@ -40,6 +47,12 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.10'
 	//compile group: 'com.forum', name: 'demo-forum:demo-forum-bo', version: '1.0.0'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
 }
 
 test {

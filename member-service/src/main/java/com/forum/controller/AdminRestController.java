@@ -2,7 +2,6 @@ package com.forum.controller;
 
 import javax.validation.Valid;
 
-import com.forum.dto.Authority;
 import com.forum.dto.MemberDto;
 import com.forum.exception.ApplicationException;
 import com.forum.service.MemberService;
@@ -10,7 +9,6 @@ import com.forum.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@PreAuthorize("hasAuthority('" + Authority.ADMIN + "')")
+// @PreAuthorize("hasAuthority('" + Authority.ADMIN + "')")
 @RestController
 @RequestMapping(AdminRestController.URL)
 public class AdminRestController {

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -53,8 +54,7 @@ public class MemberRestController {
 
 	@ApiOperation(value = "Get Member details", notes = "Only user name would retieved", consumes = "application/json", response = MemberDto.class)
 	@GetMapping
-	public ResponseEntity<MemberDto> getMemberDetails() throws ApplicationException{
-		String userIdStr = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	public ResponseEntity<MemberDto> getMemberDetails(@RequestHeader("userId") String userIdStr) throws ApplicationException{
 		Long userId = NumberUtils.isParsable(userIdStr) ? Long.parseLong(userIdStr) : -1L;
 		if (userId < 0) {
 			logger.error("Unexpected error in JWT token");

@@ -1,6 +1,6 @@
 FROM adoptopenjdk:11-jre-openj9 as builder
 WORKDIR application
-EXPOSE 8081
+EXPOSE 8761
 ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} app.jar
 RUN java -Djarmode=layertools -jar app.jar extract

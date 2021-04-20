@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 											"com.forum.service.Impl", 
 											"com.forum.dao",
 											"com.forum.exception.handler",
-											"com.forum.config"})
+											"com.forum.config"}
+						)
 public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
