@@ -27,8 +27,8 @@ services:
   db:
     container_name: user-db
     image: mariadb:latest
-    # ports: 
-      # - 3007:3306
+    ports: 
+      - 3007:3306
     networks:
       - forum-network
     environment:
@@ -47,8 +47,8 @@ services:
     image: member-service:latest
     networks:
       - forum-network
-    ports:
-      - "8081:8081"
+    # ports:
+      # - "8081:8081"
     environment:
       SPRING_PROFILES_ACTIVE: docker
     depends_on:
