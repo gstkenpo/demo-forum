@@ -20,7 +20,7 @@ public class GatewayConfig {
     public RouteLocator routes(RouteLocatorBuilder builder) {
         return builder.routes()
                     .route("member-service", r -> r.path("/rest/member").or()
-                                                    .path("/rest/login").filters(f -> f.filter(jwtAuthorizationFilter)).uri("lb://member-service"))
+                                                    .path("/rest/login").uri("lb://member-service"))
                     .route("admin-service", r -> r.path("/rest/admin").filters(f -> f.filter(jwtAuthorizationFilter).filter(adminFilter)).uri("lb://member-service"))
                     .build();
     }

@@ -1,11 +1,11 @@
-FROM adoptopenjdk:11-jre-openj9 as builder
+FROM adoptopenjdk/openjdk11:x86_64-alpine-jdk-11.0.11_9-slim as builder
 WORKDIR application
 EXPOSE 8761
 ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
 
-FROM adoptopenjdk:11-jre-openj9
+FROM adoptopenjdk/openjdk11:x86_64-alpine-jdk-11.0.11_9-slim
 WORKDIR application
 COPY --from=builder application/dependencies ./
 COPY --from=builder application/spring-boot-loader ./

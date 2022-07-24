@@ -17,7 +17,7 @@ public class AdminFilter implements GatewayFilter {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         if (CollectionUtils.isEmpty(request.getHeaders().get("isAdmin")) || 
-            request.getHeaders().get("isAdmin").get(0) != "Y") return this.onError(exchange, "This is admin only function", HttpStatus.UNAUTHORIZED);
+            !request.getHeaders().get("isAdmin").get(0).equals("Y")) return this.onError(exchange, "This is admin only function", HttpStatus.UNAUTHORIZED);
         return chain.filter(exchange);
     }
 

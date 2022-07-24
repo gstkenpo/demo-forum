@@ -39,10 +39,10 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
         // .antMatcher("*")
     	.antMatchers("/rest/admin").permitAll()
     	// .antMatchers("/v2/api-docs/**", "/configuration/ui/**", "/swagger-resources/**", "/configuration/security/**", "/swagger-ui.html", "/webjars/**").permitAll()
-		.anyRequest().authenticated()
+		//.anyRequest().authenticated()
         .and()
         .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-        // .addFilter(new JWTAuthorizationFilter(authenticationManager(), memberService))
+        //.addFilter(new JWTAuthenticationFilter(authenticationManager(), memberService))
         //.addFilter(jWTAuthorizationFilter)
 		// .headers()
         ;

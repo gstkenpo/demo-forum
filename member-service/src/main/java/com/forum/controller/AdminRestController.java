@@ -38,7 +38,7 @@ public class AdminRestController {
     }
 
     @GetMapping
-    public ResponseEntity<MemberDto> getMemberDetails(@RequestParam("userId") Long userId, @RequestParam("userName") String userName) throws ApplicationException{
+    public ResponseEntity<MemberDto> getMemberDetails(@RequestParam(name = "userId", required=false) Long userId, @RequestParam("userName") String userName) throws ApplicationException{
         MemberDto memberDto = memberService.getMemberDetail(userId, userName);
         return ResponseEntity.ok(memberDto);
     }
